@@ -71,7 +71,6 @@ struct Converter<Browser::UserTask> {
 };
 #endif
 
-#if defined(OS_MACOSX)
 template<>
 struct Converter<Browser::LoginItemSettings> {
   static bool FromV8(v8::Isolate* isolate, v8::Local<v8::Value> val,
@@ -96,8 +95,6 @@ struct Converter<Browser::LoginItemSettings> {
     return dict.GetHandle();
   }
 };
-#endif
-
 }  // namespace mate
 
 
