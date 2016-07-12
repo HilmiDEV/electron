@@ -19,8 +19,10 @@ class WebViewManager;
 
 class AtomBrowserContext : public brightray::BrowserContext {
  public:
-  AtomBrowserContext(const std::string& partition, bool in_memory);
-  ~AtomBrowserContext() override;
+  // Get or create the BrowserContext according to its |partition| and
+  // |in_memory|.
+  static scoped_refptr<AtomBrowserContext> From(
+      const std::string& partition, bool in_memory);
 
   void SetUserAgent(const std::string& user_agent);
 
@@ -44,6 +46,10 @@ class AtomBrowserContext : public brightray::BrowserContext {
 
   AtomCertVerifier* cert_verifier() const { return cert_verifier_; }
   AtomNetworkDelegate* network_delegate() const { return network_delegate_; }
+
+ protected:
+  AtomBrowserContext(const std::string& partition, bool in_memory);
+  ~AtomBrowserContext() override;
 
  private:
   std::unique_ptr<AtomDownloadManagerDelegate> download_manager_delegate_;
